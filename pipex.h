@@ -6,7 +6,7 @@
 /*   By: tsurma <tsurma@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 13:28:32 by tsurma            #+#    #+#             */
-/*   Updated: 2024/03/13 18:44:30 by tsurma           ###   ########.fr       */
+/*   Updated: 2024/03/14 16:58:26 by tsurma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,23 +21,10 @@
 # include <errno.h>
 # include <stdio.h>
 
-typedef struct s_all
-{
-	int		infile;
-	int		outfile;
-	int		stdoutb;
-	int		stdinb;
-	int		i;
-	char	**args;
-}	t_all;
 
-// typedef enum
-// {
-// 	NOFILE = "No such file in Directory";
-// 	FILESERR
-// }	t_err;
 
-int		main(int argc, char **argv);
+
+int	main(int argc, char **argv, char **envp);
 
 
 #endif
