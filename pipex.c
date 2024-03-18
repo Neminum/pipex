@@ -6,7 +6,7 @@
 /*   By: tsurma <tsurma@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 20:27:51 by tsurma            #+#    #+#             */
-/*   Updated: 2024/03/14 18:29:14 by tsurma           ###   ########.fr       */
+/*   Updated: 2024/03/18 18:43:46 by tsurma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,62 +20,55 @@ int	main(int argc, char **argv, char **envp)
 
 	if (argc < 5)
 		return (0);
-	i = 2;
+	i = 1;
 	infile = open(argv[1], O_RDONLY);
-	outfile = open(argv[--argc], O_WRONLY);
+	outfile = open(argv[argc - 1], O_WRONLY | O_TRUNC);
 	if (infile == -1 || outfile == -1)
 		return (0);
-	if (dup2(infile, STDIN_FILENO) == -1)
-		return (0);
-	fork(argv[++i], envp);
-
+	dup2(infile, STDIN_FILENO);
+	while (++i < argc - 2)
+		child(argv[i], envp);
+	dup2(outfile, STDOUT_FILENO);
+	execute(argv[argc - 2], envp);
 	return (0);
 }
 
-void	fork(char *cmd, char **envp)
+void	child(char *argv, char **envp)
 {
 	pid_t	pid;
-	int		fd[2];
-}
+	int		pipefd[2];
 
-char	*pathfinder(char **envp, char *cmd)
-{
-	int		i;
-	char	*temp;
-	char	*temp2;
-	char	**paths;
-
-	i = 0;
-	while (envp[i] && ft_strncmp(envp[i], "PATH=", 5) != 0)
-		i++;
-	if (envp[i] == NULL)
-		return (NULL);
-	paths = ft_split(envp[i] + 5, ':');
-	if (paths == NULL)
-		return (NULL);
-	i = -1;
-	while (paths[++i] != NULL)
-	{
-		temp = ft_strjoin(paths[i], '/');
-		temp2 = ft_strjoin(temp, cmd);
-		free(temp);
-		if (access(temp2, F_OK) == 0)
-		{
-			free_matrix(paths);
-			return()
-		}
-	}
-
-}
-
-void	free_matrix(char **matrix)
-{
-	int	i;
-
-	i = -1;
-	if (matrix == NULL)
+	if (pipe(pipefd) == -1)
 		return ;
-	while (matrix[++i])
-		free(matrix[i]);
-	free(matrix);
+	pid = fork();
+	if (pid == -1)
+		return ;
+	if (pid == 0)
+	{
+		close(pipefd[0]);
+		dup2(pipefd[1], STDOUT_FILENO);
+		execute(argv, envp);
+	}
+	else
+	{
+		close(pipefd[1]);
+		dup2(pipefd[0], STDIN_FILENO);
+		waitpid(pid, NULL, 0);
+	}
+}
+
+void	execute(char *argv, char **envp)
+{
+	char	*path;
+	char	**cmd;
+
+	cmd = ft_split(argv, ' ');
+	path = pathfinder(envp, cmd[0]);
+	if (!path)
+	{
+		free_matrix(cmd);
+		return ;
+	}
+	if (execve(path, cmd, envp) == -1)
+		return ;
 }

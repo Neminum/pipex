@@ -6,7 +6,7 @@
 #    By: tsurma <tsurma@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/27 15:40:37 by tsurma            #+#    #+#              #
-#    Updated: 2024/03/12 20:27:43 by tsurma           ###   ########.fr        #
+#    Updated: 2024/03/18 17:54:35 by tsurma           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,8 @@ CFLAGS = -Wall -Werror -Wextra -g3 -fsanitize=address
 NAME = pipex
 MAKEFLAGS = --no-print-directory
 
-SRC = pipex.c
+SRC = pipex.c\
+	pipex_utils.c
 
 OBJ = $(SRC:.c=.o)
 
