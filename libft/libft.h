@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsurma <tsurma@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tobias <tobias@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 11:26:07 by tsurma            #+#    #+#             */
-/*   Updated: 2024/03/11 18:02:44 by tsurma           ###   ########.fr       */
+/*   Updated: 2024/03/19 17:13:20 by tobias           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,6 @@ typedef struct all_I_need
 }	t_all_I_need;
 
 char	*get_next_line(int fd);
-char	*returns(t_all_I_need *a);
-char	*returns1(t_all_I_need *a);
-char	*returns2(t_all_I_need *a);
-void	store(t_all_I_need *a);
-char	*store1(t_all_I_need *a);
 
 # endif
 #endif

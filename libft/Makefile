@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tsurma <tsurma@student.42.fr>              +#+  +:+       +#+         #
+#    By: tobias <tobias@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 11:46:44 by tsurma            #+#    #+#              #
-#    Updated: 2024/02/12 16:35:57 by tsurma           ###   ########.fr        #
+#    Updated: 2024/03/19 17:14:10 by tobias           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,9 +50,7 @@ ft_tolower.c\
 ft_toupper.c\
 ft_printf.c\
 ft_printf_h.c\
-get_next_line.c\
-get_next_line_utils.c
-
+get_next_line.c
 
 OBJ = $(SRC:.c=.o)
 

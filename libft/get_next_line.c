@@ -3,14 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsurma <tsurma@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tobias <tobias@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 15:06:43 by tsurma            #+#    #+#             */
-/*   Updated: 2024/02/14 13:19:32 by tsurma           ###   ########.fr       */
+/*   Updated: 2024/03/19 17:13:52 by tobias           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+static void	store(t_all_I_need *a);
+static char	*store1(t_all_I_need *a);
+static char	*returns(t_all_I_need *a, int i);
 
 char	*get_next_line(int fd)
 {
@@ -21,10 +25,10 @@ char	*get_next_line(int fd)
 	a.buf = ft_calloc((a.len + BUFFER_SIZE + 1), sizeof(char));
 	a.toread = read(fd, a.buf + a.len, BUFFER_SIZE);
 	if (a.toread == -1)
-		return (returns(&a));
+		return (returns(&a, 0));
 	store(&a);
 	if (a.buf[a.len] == '\0' && a.toread == 0)
-		return (returns1(&a));
+		return (returns(&a, 1));
 	if (a.buf[a.len] == '\0' && a.toread == BUFFER_SIZE)
 	{
 		a.len = 0;
@@ -33,15 +37,15 @@ char	*get_next_line(int fd)
 		return (get_next_line(fd));
 	}
 	if ((!(a.buf[a.len]) || a.buf[a.len] == '\n') && a.buf[a.len + 1] == '\0')
-		return (returns2(&a));
+		return (returns(&a, 2));
 	free(a.last);
 	a.last = malloc(sizeof(char) * (a.lenstore + a.toread + 1));
 	if (!a.last)
-		return (returns(&a));
+		return (returns(&a, 0));
 	return (store1(&a));
 }
 
-void	store(t_all_I_need *a)
+static void	store(t_all_I_need *a)
 {
 	a->buf[a->len + a->toread] = '\0';
 	a->lenstore = a->len;
@@ -53,7 +57,7 @@ void	store(t_all_I_need *a)
 		++a->len;
 }
 
-char	*store1(t_all_I_need *a)
+static char	*store1(t_all_I_need *a)
 {
 	while (a->buf[a->len + 1 + ++a->c])
 		a->last[a->c] = a->buf[a->len + 1 + a->c];
@@ -61,4 +65,32 @@ char	*store1(t_all_I_need *a)
 	a->buf[a->len + 1] = '\0';
 	a->len = 0;
 	return (a->buf);
+}
+
+static char	*returns(t_all_I_need *a, int i)
+{
+	if (i == 0)
+	{
+		a->len = 0;
+		free(a->buf);
+		if (a->last != NULL)
+			free(a->last);
+		a->last = NULL;
+		return (a->last);
+	}
+	else if (i == 1)
+	{
+		a->len = 0;
+		free(a->buf);
+		a->buf = a->last;
+		a->last = NULL;
+		return (a->buf);
+	}
+	else if (i == 2)
+	{
+		a->len = 0;
+		free(a->last);
+		a->last = NULL;
+		return (a->buf);
+	}
 }
