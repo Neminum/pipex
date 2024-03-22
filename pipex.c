@@ -6,7 +6,7 @@
 /*   By: tsurma <tsurma@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 20:27:51 by tsurma            #+#    #+#             */
-/*   Updated: 2024/03/18 18:43:46 by tsurma           ###   ########.fr       */
+/*   Updated: 2024/03/20 12:07:04 by tsurma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ void	execute(char *argv, char **envp)
 	char	**cmd;
 
 	cmd = ft_split(argv, ' ');
+	if (!cmd)
+		return ;
 	path = pathfinder(envp, cmd[0]);
 	if (!path)
 	{

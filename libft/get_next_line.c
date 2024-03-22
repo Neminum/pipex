@@ -86,7 +86,7 @@ static char	*returns(t_all_I_need *a, int i)
 		a->last = NULL;
 		return (a->buf);
 	}
-	else if (i == 2)
+	else
 	{
 		a->len = 0;
 		free(a->last);

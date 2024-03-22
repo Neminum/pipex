@@ -6,7 +6,7 @@
 /*   By: tsurma <tsurma@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:45:33 by tsurma            #+#    #+#             */
-/*   Updated: 2024/03/18 17:34:12 by tsurma           ###   ########.fr       */
+/*   Updated: 2024/03/20 12:08:52 by tsurma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,19 +56,6 @@ static char	*select_path(char **paths, char *cmd)
 	free_matrix(paths);
 	return (NULL);
 }
-
-// static char	*prep_path(char *path, char *cmd)
-// {
-// 	char	*add;
-// 	char	slash;
-
-// 	slash = '/';
-// 	add = ft_strjoin(&slash, cmd);
-// 	if (!add)
-// 		return (NULL);
-
-
-// }
 
 char	*free_matrix(char **matrix)
 {
