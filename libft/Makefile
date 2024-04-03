@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tobias <tobias@student.42.fr>              +#+  +:+       +#+         #
+#    By: tsurma <tsurma@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 11:46:44 by tsurma            #+#    #+#              #
-#    Updated: 2024/03/19 17:14:10 by tobias           ###   ########.fr        #
+#    Updated: 2024/04/03 17:55:32 by tsurma           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ NAME = libft.a
 SRC = ft_atoi.c\
 ft_bzero.c\
 ft_calloc.c\
+ft_free_matrix.c\
 ft_isalnum.c\
 ft_isalpha.c\
 ft_isascii.c\
@@ -56,14 +57,14 @@ OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
 
-$(NAME) : $(OBJ)
-	@ ar -cq $(NAME) $^
+.SILENT $(NAME) : $(OBJ)
+	@ar -cq $(NAME) $^
 
 fclean : clean
-	@-rm $(NAME)
+	@-rm -f $(NAME)
 
 clean :
-	@-rm $(OBJ)
+	@rm -f $(OBJ)
 
 re : fclean all
 

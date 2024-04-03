@@ -6,34 +6,48 @@
 #    By: tsurma <tsurma@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/27 15:40:37 by tsurma            #+#    #+#              #
-#    Updated: 2024/03/18 17:54:35 by tsurma           ###   ########.fr        #
+#    Updated: 2024/04/03 18:29:26 by tsurma           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC = cc
-CFLAGS = -Wall -Werror -Wextra -g3 -fsanitize=address
-NAME = pipex
-MAKEFLAGS = --no-print-directory
+NAME	= pipex
+NAME_B	= pipex_bonus
 
-SRC = pipex.c\
-	pipex_utils.c
-
+SRC =	scrs/pipex.c\
+		scrs/pipex_utils.c
 OBJ = $(SRC:.c=.o)
 
-all: $(NAME)
+SRC_B =	scrs/pipex_bonus.c\
+		scrs/pipex_utils.c\
+		scrs/pipex_utils_bonus.c
+OBJ_B =	$(SRC_B:.c=.o)
 
-$(NAME) : $(OBJ)
-	@ make -C libft
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) libft/libft.a
+CC =		cc
+CFLAGS =	-Wall -Werror -Wextra -g3
+MAKEFLAGS =	--no-print-directory
+
+
+all:	$(NAME)
+
+bonus:	$(NAME_B)
+
+.SILENT $(NAME) : $(OBJ)
+	@ make re -C ./libft
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) libft/libft.a
+
+$(NAME_B) : $(OBJ_B)
+	@make re -C ./libft
+	@$(CC) $(CFLAGS) -o $(NAME_B) $(OBJ_B) libft/libft.a
 
 clean :
-	make fclean -C libft
-	@-rm -f $(OBJ)
+	make clean -C ./libft
+	@rm -f $(OBJ) $(OBJ_B)
 
 fclean : clean
-	@-rm -f $(NAME)
+	@rm -f $(NAME) $(NAME_B)
 
-re : fclean all
+re:			fclean all
 
+re_bonus:	fclean bonus
 
-.PHONY : clean fclean re all
+.PHONY:		all clean fclean re bonus bonus_re
