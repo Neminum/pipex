@@ -6,7 +6,7 @@
 /*   By: tsurma <tsurma@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 20:27:51 by tsurma            #+#    #+#             */
-/*   Updated: 2024/04/03 18:24:22 by tsurma           ###   ########.fr       */
+/*   Updated: 2024/04/05 16:15:07 by tsurma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ static int	open_file(char *file, int indicator)
 	if (indicator == 0)
 		ret = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	else
-		ret = open(file, O_RDONLY, 0444);
-	if (!ret)
+		ret = open(file, O_RDONLY, 0777);
+	if (ret < 0)
 		error();
 	return (ret);
 }
